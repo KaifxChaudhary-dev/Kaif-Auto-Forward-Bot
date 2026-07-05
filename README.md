@@ -12,7 +12,7 @@ Welcome to the official deployment hub for advanced bots and automation tools. T
 Click the button below to directly chat with the admin and request bot deployment.
 
 <p align="center">
-  <a href="https://wa.me/258867532400?text=Hello%2C%20I%20want%20to%20deploy%20the%20bot.%20Please%20guide%20me.">
+  <a href="https://wa.me/923466859436?text=Hello%2C%20I%20want%20to%20deploy%20the%20bot.%20Please%20guide%20me.">
     <img src="https://img.shields.io/badge/📲_Contact_Admin_on_WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp Admin" />
   </a>
 </p>
@@ -22,7 +22,7 @@ Click the button below to directly chat with the admin and request bot deploymen
 Stay updated with latest bot news, updates, and deployment guides.
 
 <p align="center">
-  <a href="https://whatsapp.com/channel/0029Vb1UcELGOj9txoamh02q">
+  <a href="https://whatsapp.com/channel/0029VbDRseaLikg1Af2jCn3F">
     <img src="https://img.shields.io/badge/📢_Join_WhatsApp_Channel-128C7E?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp Channel" />
   </a>
 </p>
