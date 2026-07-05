@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Muzamil-MD • Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        /* ============================================
+           CARD - BIGGER SIZE
+           ============================================ */
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 40px 36px 32px;
+            max-width: 520px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           HEADER - BIGGER
+           ============================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header .brand .icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .header .brand h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .header .brand h1 span {
+            color: #7c3aed;
+        }
+
+        .header .status-badge {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 20px;
+            background: rgba(34, 197, 94, 0.12);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .status-badge.offline {
+            background: rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.15);
+        }
+
+        .status-badge.scan {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.15);
+        }
+
+        /* ============================================
+           INFO GRID - BIGGER
+           ============================================ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 16px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .info-card .label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .info-card .value {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 4px;
+            color: #fff;
+        }
+
+        .info-card .value.green { color: #22c55e; }
+        .info-card .value.pink { color: #ec4899; }
+        .info-card .value.blue { color: #06b6d4; }
+        .info-card .value.red { color: #ef4444; }
+        .info-card .value.gray { color: rgba(255,255,255,0.3); }
+
+        /* ============================================
+           QR SECTION - BIG QR CODE
+           ============================================ */
+        .qr-section {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .qr-section.collapsed {
+            max-height: 0 !important;
+            padding: 0 !important;
+            margin-bottom: 0 !important;
+            opacity: 0 !important;
+            border: none !important;
+        }
+
+        .qr-section .qr-wrapper {
+            display: inline-block;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-section .qr-wrapper img {
+            width: 220px;
+            height: 220px;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .qr-section .qr-wrapper .placeholder {
+            width: 220px;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            border-radius: 10px;
+            color: #999;
+        }
+
+        .qr-section .qr-wrapper .placeholder i {
+            font-size: 56px;
+            margin-bottom: 10px;
+            opacity: 0.3;
+        }
+
+        .qr-section .qr-wrapper .placeholder span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .qr-section .qr-status {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 6px 20px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.1);
+        }
+
+        .qr-section .qr-status.ready {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.1);
+        }
+
+        .qr-section .qr-status.waiting {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.1);
+        }
+
+        .qr-section .hint {
+            margin-top: 14px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 500;
+        }
+
+        .qr-section .hint i {
+            color: #06b6d4;
+            margin-right: 6px;
+        }
+
+        .qr-section .hint .highlight {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           SESSION INFO - BIGGER
+           ============================================ */
+        .session-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .session-info .item {
+            flex: 1;
+            min-width: 70px;
+        }
+
+        .session-info .item .label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .session-info .item .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2px;
+        }
+
+        .session-info .item .value.code {
+            font-family: 'Monaco', monospace;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ============================================
+           BUTTONS - BIGGER
+           ============================================ */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 16px 22px;
+            flex: 0.4;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-danger {
+            width: 100%;
+            margin-top: 12px;
+            background: rgba(239, 68, 68, 0.08);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            padding: 16px;
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .btn .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            padding: 14px 28px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 999;
+            max-width: 90%;
+            opacity: 0;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast.success { border-left: 3px solid #22c55e; }
+        .toast.error { border-left: 3px solid #ef4444; }
+        .toast.warning { border-left: 3px solid #fbbf24; }
+        .toast.info { border-left: 3px solid #06b6d4; }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            text-align: center;
+            padding: 18px 0 0;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .footer i {
+            color: #ec4899;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 520px) {
+            .card {
+                max-width: 100%;
+                padding: 28px 20px 24px;
+                border-radius: 24px;
+            }
+
+            .header .brand h1 {
+                font-size: 20px;
+            }
+
+            .header .brand .icon {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .header .status-badge {
+                font-size: 11px;
+                padding: 6px 14px;
+            }
+
+            .info-grid {
+                gap: 10px;
+            }
+
+            .info-card {
+                padding: 14px 16px;
+            }
+
+            .info-card .value {
+                font-size: 16px;
+            }
+
+            .qr-section .qr-wrapper img,
+            .qr-section .qr-wrapper .placeholder {
+                width: 190px;
+                height: 190px;
+            }
+
+            .qr-section {
+                padding: 20px;
+            }
+
+            .qr-section .qr-wrapper {
+                padding: 10px;
+            }
+
+            .qr-section .qr-wrapper .placeholder i {
+                font-size: 48px;
+            }
+
+            .qr-section .qr-status {
+                font-size: 13px;
+                padding: 5px 18px;
+            }
+
+            .qr-section .hint {
+                font-size: 12px;
+            }
+
+            .session-info {
+                padding: 12px 16px;
+            }
+
+            .session-info .item .value {
+                font-size: 13px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 14px 18px;
+            }
+
+            .btn-secondary {
+                padding: 14px 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                padding: 20px 14px 18px;
+                border-radius: 20px;
+            }
+
+            .header .brand h1 {
+                font-size: 17px;
+            }
+
+            .header .brand .icon {
+                width: 38px;
+                height: 38px;
+                font-size: 17px;
+            }
+
+            .header .status-badge {
+                font-size: 10px;
+                padding: 4px 12px;
+            }
+
+            .info-grid {
+                gap: 8px;
+            }
+
+            .info-card {
+                padding: 10px 12px;
+                border-radius: 12px;
+            }
+
+            .info-card .value {
+                font-size: 14px;
+            }
+
+            .info-card .label {
+                font-size: 9px;
+            }
+
+            .qr-section .qr-wrapper img,
+            .qr-section .qr-wrapper .placeholder {
+                width: 160px;
+                height: 160px;
+            }
+
+            .qr-section {
+                padding: 16px;
+                border-radius: 14px;
+            }
+
+            .qr-section .qr-wrapper {
+                padding: 8px;
+            }
+
+            .qr-section .qr-wrapper .placeholder i {
+                font-size: 40px;
+            }
+
+            .qr-section .qr-wrapper .placeholder span {
+                font-size: 13px;
+            }
+
+            .qr-section .qr-status {
+                font-size: 12px;
+                padding: 4px 14px;
+            }
+
+            .qr-section .hint {
+                font-size: 11px;
+            }
+
+            .session-info {
+                padding: 10px 14px;
+            }
+
+            .session-info .item .value {
+                font-size: 12px;
+            }
+
+            .btn {
+                font-size: 13px;
+                padding: 13px 14px;
+                border-radius: 14px;
+            }
+
+            .btn-secondary {
+                padding: 13px 14px;
+            }
+
+            .btn-danger {
+                padding: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <div class="card">
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="brand">
+                <div class="icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1>Muzamil <span>MD</span></h1>
+            </div>
+            <span class="status-badge" id="statusBadge">● Online</span>
+        </div>
+
+        <!-- ===== INFO GRID ===== -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">Bot Status</div>
+                <div class="value green" id="botStatus">● Connected</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Database</div>
+                <div class="value pink" id="dbStatus">● Active</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Uptime</div>
+                <div class="value blue" id="uptimeDisplay">0s</div>
+            </div>
+            <div class="info-card">
+                <div class="label">Session</div>
+                <div class="value" id="sessionDisplay" style="font-size:14px; color:rgba(255,255,255,0.4);">-</div>
+            </div>
+        </div>
+
+        <!-- ===== QR SECTION ===== -->
+        <div class="qr-section" id="qrSection">
+            <div class="qr-wrapper">
+                <img id="qrImage" src="" alt="QR" style="display:none;">
+                <div class="placeholder" id="qrPlaceholder">
+                    <i class="fas fa-qrcode"></i>
+                    <span>Scan to Connect</span>
+                </div>
+            </div>
+            <div class="qr-status waiting" id="qrStatus">● Waiting for QR</div>
+            <div class="hint" id="qrHint">
+                <i class="fas fa-phone"></i> WhatsApp → <span class="highlight">Linked Devices</span> → Link a Device
+            </div>
+        </div>
+
+        <!-- ===== SESSION INFO ===== -->
+        <div class="session-info">
+            <div class="item">
+                <div class="label">Device</div>
+                <div class="value" id="deviceDisplay">-</div>
+            </div>
+            <div class="item">
+                <div class="label">Last Active</div>
+                <div class="value" id="activeDisplay">-</div>
+            </div>
+        </div>
+
+        <!-- ===== BUTTONS ===== -->
+        <div class="btn-group">
+            <button class="btn btn-primary" id="restartBtn" onclick="restartBot()">
+                <i class="fas fa-sync-alt"></i> Restart
+            </button>
+            <button class="btn btn-secondary" onclick="refreshStatus()" title="Refresh">
+                <i class="fas fa-rotate"></i>
+            </button>
+        </div>
+        <button class="btn btn-danger" onclick="logoutBot()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">
+            Made with <i class="fas fa-heart"></i> by Muzamil
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // STATE
+        // ============================================
+        let statusInterval = null;
+        let startTime = Date.now();
+
+        // ============================================
+        // TOAST
+        // ============================================
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast ${type}`;
+            setTimeout(() => t.classList.add('show'), 10);
+            clearTimeout(t._hide);
+            t._hide = setTimeout(() => t.classList.remove('show'), 3500);
+        }
+
+        // ============================================
+        // FORMAT TIME
+        // ============================================
+        function formatTime(s) {
+            const h = Math.floor(s / 3600);
+            const m = Math.floor((s % 3600) / 60);
+            const sec = Math.floor(s % 60);
+            if (h > 0) return h + 'h ' + m + 'm';
+            if (m > 0) return m + 'm ' + sec + 's';
+            return sec + 's';
+        }
+
+        // ============================================
+        // FETCH STATUS
+        // ============================================
+        async function fetchStatus() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+
+                // --- BADGE ---
+                const badge = document.getElementById('statusBadge');
+                let badgeText, badgeClass;
+
+                if (data.connected) {
+                    badgeText = '● Online';
+                    badgeClass = '';
+                } else if (data.qr) {
+                    badgeText = '◉ Scan';
+                    badgeClass = 'scan';
+                } else {
+                    badgeText = '○ Offline';
+                    badgeClass = 'offline';
+                }
+
+                badge.textContent = badgeText;
+                badge.className = 'status-badge' + (badgeClass ? ' ' + badgeClass : '');
+
+                // --- BOT STATUS ---
+                const botStatus = document.getElementById('botStatus');
+                if (data.connected) {
+                    botStatus.textContent = '● Connected';
+                    botStatus.className = 'value green';
+                } else if (data.qr) {
+                    botStatus.textContent = '◉ Waiting for QR';
+                    botStatus.className = 'value blue';
+                } else {
+                    botStatus.textContent = '● Disconnected';
+                    botStatus.className = 'value red';
+                }
+
+                // --- DATABASE ---
+                const dbStatus = document.getElementById('dbStatus');
+                if (data.dbConnected) {
+                    dbStatus.textContent = '● Active';
+                    dbStatus.className = 'value green';
+                } else if (data.dbConfigured) {
+                    dbStatus.textContent = '◉ Connecting';
+                    dbStatus.className = 'value blue';
+                } else {
+                    dbStatus.textContent = '○ Disabled';
+                    dbStatus.className = 'value gray';
+                }
+
+                // --- UPTIME ---
+                document.getElementById('uptimeDisplay').textContent = formatTime(Math.floor((Date.now() - startTime) / 1000));
+
+                // --- SESSION ---
+                document.getElementById('sessionDisplay').textContent = data.sessionId || '-';
+
+                // ============================================
+                // QR SECTION - COLLAPSE / EXPAND
+                // ============================================
+                const qrSection = document.getElementById('qrSection');
+                const img = document.getElementById('qrImage');
+                const ph = document.getElementById('qrPlaceholder');
+                const qrStatus = document.getElementById('qrStatus');
+                const hint = document.getElementById('qrHint');
+
+                if (data.connected) {
+                    qrSection.classList.add('collapsed');
+                } else {
+                    qrSection.classList.remove('collapsed');
+
+                    if (data.qr) {
+                        img.src = data.qr;
+                        img.style.display = 'block';
+                        ph.style.display = 'none';
+                        qrStatus.textContent = '📱 Scan QR Code';
+                        qrStatus.className = 'qr-status ready';
+                        hint.innerHTML = '<i class="fas fa-phone"></i> WhatsApp → <span class="highlight">Linked Devices</span> → Link a Device';
+                    } else {
+                        img.style.display = 'none';
+                        ph.style.display = 'flex';
+                        qrStatus.textContent = '⏳ Generating QR...';
+                        qrStatus.className = 'qr-status waiting';
+                        hint.innerHTML = '<i class="fas fa-clock"></i> Please wait, <span class="highlight">QR code</span> is being generated';
+                    }
+                }
+
+                // --- DEVICE ---
+                document.getElementById('deviceDisplay').textContent = data.connected ? '✅ Connected' : '-';
+
+                // --- LAST ACTIVE ---
+                document.getElementById('activeDisplay').textContent = data.lastActive ? new Date(data.lastActive).toLocaleTimeString() : '-';
+
+                // --- ENABLE RESTART ---
+                document.getElementById('restartBtn').disabled = false;
+
+                return data;
+
+            } catch (e) {
+                console.error(e);
+                document.getElementById('statusBadge').textContent = '⚠ Error';
+                document.getElementById('statusBadge').className = 'status-badge offline';
+                document.getElementById('botStatus').textContent = '⚠ Error';
+                document.getElementById('botStatus').className = 'value red';
+                showToast('Failed to fetch status', 'error');
+                return null;
+            }
+        }
+
+        // ============================================
+        // REFRESH
+        // ============================================
+        function refreshStatus() {
+            const btn = document.querySelector('.btn-secondary');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+            fetchStatus().finally(() => {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+                showToast('Status updated', 'info');
+            });
+        }
+
+        // ============================================
+        // RESTART
+        // ============================================
+        async function restartBot() {
+            const btn = document.getElementById('restartBtn');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner"></span> Restarting...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/restart', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('⚡ Bot restarting...', 'warning');
+                    setTimeout(() => {
+                        fetchStatus();
+                        showToast('✅ Bot restarted!', 'success');
+                    }, 5000);
+                } else {
+                    showToast('❌ Failed: ' + (data.error || 'Unknown'), 'error');
+                }
+            } catch (e) {
+                showToast('❌ Request failed', 'error');
+            } finally {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }
+        }
+
+        // ============================================
+        // LOGOUT
+        // ============================================
+        async function logoutBot() {
+            if (!confirm('⚠️ Logout will disconnect the bot. Continue?')) return;
+            const btn = document.querySelector('.btn-danger');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/logout', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('👋 Logged out', 'success');
+                    setTimeout(fetchStatus, 2000);
+                } else {
+                    showToast('❌ Logout failed', 'error');
+                }
+            } catch (e) {
+                showToast('❌ Request failed', 'error');
+            } finally {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }
+        }
+
+        // ============================================
+        // AUTO REFRESH
+        // ============================================
+        function startAutoRefresh() {
+            if (statusInterval) clearInterval(statusInterval);
+            fetchStatus();
+            statusInterval = setInterval(fetchStatus, 10000);
+        }
+
+        document.addEventListener('DOMContentLoaded', startAutoRefresh);
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) fetchStatus();
+        });
+    </script>
+
+</body>
+</html>
