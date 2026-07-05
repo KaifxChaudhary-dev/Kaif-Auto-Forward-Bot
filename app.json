@@ -1,7 +1,7 @@
 {
-  "name": "Muzamil-MD",
+  "name": "Kaif-Auto-Forward-Bot",
   "description": "WhatsApp Bot with Auto Forward & MongoDB Session",
-  "keywords": ["whatsapp", "bot", "muzamil", "mongodb"],
+  "keywords": ["whatsapp", "bot", "kaif", "mongodb"],
   "repository": "",
   "logo": "https://i.ibb.co/d6bLQ7y/whatsapp-logo.png",
   "success_url": "/",
