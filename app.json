@@ -1,0 +1,24 @@
+{
+  "name": "Muzamil-MD",
+  "description": "WhatsApp Bot with Auto Forward & MongoDB Session",
+  "keywords": ["whatsapp", "bot", "muzamil", "mongodb"],
+  "repository": "",
+  "logo": "https://i.ibb.co/d6bLQ7y/whatsapp-logo.png",
+  "success_url": "/",
+  "stack": "heroku-22",
+  "env": {
+    "SESSION_ID": {
+      "description": "Unique session ID for your bot",
+      "required": true
+    },
+    "MONGODB_URL": {
+      "description": "MongoDB connection URL",
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "wasi-md-v7",
+  "version": "7.0.0",
+  "description": "WASI-MD WhatsApp Bot - A powerful modular WhatsApp bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "reset": "node scripts/reset-auth.js",
+    "pm2": "pm2 start ecosystem.config.json",
+    "pm2:stop": "pm2 stop wasi-bot",
+    "pm2:logs": "pm2 logs wasi-bot"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "baileys",
+    "nodejs"
+  ],
+  "author": "Waseem (@Itxxwasi)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Itxxwasi/WASI-MD-V7.git"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "@distube/ytdl-core": "^4.16.12",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^7.0.0-rc.9",
+    "axios": "^1.13.2",
+    "better-sqlite3": "^12.6.0",
+    "canvacord": "^5.4.10",
+    "catbox": "^10.0.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "fbdl-core": "^1.0.2",
+    "fluent-ffmpeg": "^2.1.3",
+    "form-data": "^4.0.5",
+    "google-translate-api-x": "^10.7.2",
+    "gtts": "^0.2.1",
+    "instagram-url-direct": "^2.0.7",
+    "instatouch": "^2.3.22",
+    "moment-timezone": "^0.6.0",
+    "mongoose": "^9.1.3",
+    "needle": "^3.3.1",
+    "node-fetch": "^2.6.7",
+    "pino": "^10.2.0",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "sharp": "^0.34.5",
+    "youtube-dl-exec": "^3.0.29",
+    "yt-dlp-exec": "^1.0.2",
+    "yt-search": "^2.13.1",
+    "ytdl-core": "^4.11.5"
+  }
+}
