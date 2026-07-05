@@ -8,7 +8,7 @@ module.exports = {
 📇  CONTACT INFORMATION
 ━━━━━━━━━━━━━━━━━━━━━━
 
-👤 Name : Hidden  😛 
+👤 Name : Kaif 
 
 📍 Location : Pakistan  
 
@@ -21,18 +21,18 @@ module.exports = {
 • Smart Automation
 
 
-📧 Email    : paidwhatsappbot.com
+📧 Email    : kaifxchaudhary@gmail.com
 
 
 💬 Telegram  
-🔗 https://t.me/paid_whatsapp_bot  
+🔗 https://t.me  
 
 
 📱 WhatsApp Contact  
-🔗 https://whatsapp.com/channel/0029Vasn4ipCBtxCxfJqgV3S
+🔗 https://whatsapp.com/channel/0029VbDMt1C3rZZaigDWAj1X
 
 ━━━━━━━━━━━━━━━━━━━━━━
-©ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴀɪᴅ ᴡʜᴀᴛsᴀᴘᴘ ʙᴏᴛ
+©Powered By Kaif x Chaudhary
 ━━━━━━━━━━━━━━━━━━━━━━`;
 
             await wasi_sock.sendMessage(wasi_sender, {
